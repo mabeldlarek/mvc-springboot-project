@@ -7,12 +7,13 @@ import com.mabeldlarek.web.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/web/")
+@Controller
 public class ClubController {
     private ClubService clubService;
 
@@ -22,6 +23,12 @@ public class ClubController {
     }
 
     @GetMapping("/clubs")
+    public String listClubs(Model model){
+        List<ClubDTO> clubs = clubService.findAll();
+        model.addAttribute("clubs", clubs);
+        return "clubs-list";
+    }
+    @GetMapping("/clubs2")
     public ResponseEntity<List<ClubDTO>> getAllClubs(){
         return new ResponseEntity<>(clubService.findAll(), HttpStatus.OK);
     }
