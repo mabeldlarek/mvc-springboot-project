@@ -28,6 +28,28 @@ public class ClubController {
         model.addAttribute("clubs", clubs);
         return "clubs-list";
     }
+
+    @GetMapping("/clubs/new")
+    public String createClubForm(Model model){
+        Club club = new Club();
+        model.addAttribute("club", club);
+        return "clubs-create";
+    }
+
+
+    @GetMapping("/clubs/{clubId}/edit")
+    public String editClubForm(@PathVariable("clubId") Long clubId, Model model) {
+        ClubDTO club = clubService.findClubById(clubId);
+        model.addAttribute("club", club);
+        return "clubs-edit";
+    }
+    @PostMapping("/clubs/{clubId}/edit")
+    public String updateClub(@PathVariable("clubId") Long clubId, @ModelAttribute("club") ClubDTO club) {
+        club.setId(clubId);
+        clubService.updateClub(club);
+        return "redirect:/clubs";
+    }
+
     @GetMapping("/clubs2")
     public ResponseEntity<List<ClubDTO>> getAllClubs(){
         return new ResponseEntity<>(clubService.findAll(), HttpStatus.OK);
@@ -38,10 +60,10 @@ public class ClubController {
         return new ResponseEntity<>(clubService.createClub(club), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/update")
-    public ResponseEntity<ClubDTO> updateClub(@RequestBody Club club, @PathVariable Long id){
+   /* @PutMapping("/{id}/update")
+    public ResponseEntity<ClubDTO> updateClub(@RequestBody ClubDTO club, @PathVariable Long id){
         return new ResponseEntity<>(clubService.updateClub(club, id), HttpStatus.OK);
-    }
+    }*/
 
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<String> deleteClub(@PathVariable Long id){
