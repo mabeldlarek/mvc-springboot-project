@@ -10,12 +10,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-
-@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
+@Entity
 @Table(name = "clubs")
 public class Club {
     @Id
@@ -27,5 +26,5 @@ public class Club {
     @CreationTimestamp
     private LocalDateTime createdOn;
     @UpdateTimestamp
-    private LocalDateTime updateOn;
+    private LocalDateTime updatedOn;
 }
