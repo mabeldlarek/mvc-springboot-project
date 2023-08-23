@@ -1,5 +1,6 @@
 package com.mabeldlarek.web.models;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,29 +10,29 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
+@Data
 @Entity
-@Table(name = "clubs")
-public class Club {
+@Builder
+@Table(name = "events")
+public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
+    private String name;
     private String photoUrl;
-    private String content;
+    private String type;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     @CreationTimestamp
     private LocalDateTime createdOn;
     @UpdateTimestamp
-    private LocalDateTime updatedOn;
+    private LocalDateTime updateOn;
 
-    @OneToMany(mappedBy = "club", cascade = CascadeType.REMOVE)
-    private List<Event> events = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name= "club_id", nullable = false)
+    private Club club;
+
 }
