@@ -2,6 +2,7 @@ package com.mabeldlarek.web.service;
 
 import com.mabeldlarek.web.dto.ClubDto;
 import com.mabeldlarek.web.dto.EventDto;
+import com.mabeldlarek.web.models.Club;
 import com.mabeldlarek.web.models.Event;
 import org.springframework.stereotype.Service;
 

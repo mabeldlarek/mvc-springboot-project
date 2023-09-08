@@ -1,5 +1,6 @@
 package com.mabeldlarek.web.dto;
 
+import com.mabeldlarek.web.models.Club;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
@@ -26,4 +27,5 @@ public class EventDto {
     private LocalDateTime endTime;
     private LocalDateTime createdOn;
     private LocalDateTime updateOn;
+    private Club club;
 }

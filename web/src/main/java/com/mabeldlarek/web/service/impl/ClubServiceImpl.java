@@ -3,7 +3,10 @@ package com.mabeldlarek.web.service.impl;
 
 import com.mabeldlarek.web.dto.ClubDto;
 import com.mabeldlarek.web.models.Club;
+import com.mabeldlarek.web.models.UserEntity;
 import com.mabeldlarek.web.repository.ClubRepository;
+import com.mabeldlarek.web.repository.UserRepository;
+import com.mabeldlarek.web.security.SecurityUtil;
 import com.mabeldlarek.web.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +20,11 @@ import static com.mabeldlarek.web.mapper.ClubMapper.mapToClubDto;
 @Service
 public class ClubServiceImpl implements ClubService {
     private ClubRepository clubRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public ClubServiceImpl(ClubRepository clubRepository) {
+    public ClubServiceImpl(ClubRepository clubRepository, UserRepository userRepository) {
+        this.userRepository = userRepository;
         this.clubRepository = clubRepository;
     }
 
@@ -31,9 +36,13 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public Club saveClub(ClubDto clubDto) {
+        String username = SecurityUtil.getSessionUser();
+        UserEntity user = userRepository.findByEmail(username);
         Club club = mapToClub(clubDto);
+        club.setCreatedBy(user);
         return clubRepository.save(club);
     }
+
 
     @Override
     public ClubDto findClubById(Long clubId) {
@@ -43,7 +52,10 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public void updateClub(ClubDto clubDto) {
+        String username = SecurityUtil.getSessionUser();
+        UserEntity user = userRepository.findByUsername(username);
         Club club = mapToClub(clubDto);
+        club.setCreatedBy(user);
         clubRepository.save(club);
     }
 
