@@ -5,9 +5,11 @@
 - PostgreSQL / JPA
 - Lombok
 - Thymeleaf
+- Spring Security
 
 ## Licence
 Project developed from [Course: Spring MVC Beginner Project]([https://www.youtube.com/playlist?list=PL82C6-O4XrHfX-kHudgC4cPfMy6QPaF-H](https://www.youtube.com/playlist?list=PL82C6-O4XrHejlASdecIsroNEbZFYo_X1)).
 
 ## Status of Project
-- Developing
+- Complete
+- Improvement modifications (open)
